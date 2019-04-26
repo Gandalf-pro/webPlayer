@@ -1,0 +1,25 @@
+{
+  "name": "webplayer",
+  "version": "0.0.1",
+  "description": "synced web player",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Gandalf-pro/webPlayer.git"
+  },
+  "author": "Gandalf-pro",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Gandalf-pro/webPlayer/issues"
+  },
+  "homepage": "https://github.com/Gandalf-pro/webPlayer#readme",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.16.4",
+    "pg": "^7.10.0",
+    "rethinkdb": "^2.3.3"
+  }
+}

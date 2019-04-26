@@ -1,0 +1,186 @@
+2019-04-24T14:40:56.545942200 0.008537s notice: In recursion: removing file 'C:\\Users\\asoc0\\OneDrive\\Belgeler\\Javacript Projects\\webPlayer\\rethinkdb\\rethinkdb_data\\tmp'
+2019-04-24T14:40:56.546888200 0.009065s warn: Trying to delete non-existent file 'C:\\Users\\asoc0\\OneDrive\\Belgeler\\Javacript Projects\\webPlayer\\rethinkdb\\rethinkdb_data\\tmp'
+2019-04-24T14:40:56.548883500 0.010864s notice: Initializing directory C:\\Users\\asoc0\\OneDrive\\Belgeler\\Javacript Projects\\webPlayer\\rethinkdb\\rethinkdb_data
+2019-04-24T14:40:56.548883501 0.011398s info: Creating a default database for your convenience. (This is because you ran 'rethinkdb' without 'create', 'serve', or '--join', and the directory 'C:\\Users\\asoc0\\OneDrive\\Belgeler\\Javacript Projects\\webPlayer\\rethinkdb\\rethinkdb_data' did not already exist or is empty.)
+2019-04-24T14:40:56.548883502 0.011510s notice: Running rethinkdb 2.3.6-windows (MSC 190024215)...
+2019-04-24T14:40:56.548883503 0.011565s notice: Running on 6.2.9200 (Windows 8, Server 2012)
+2019-04-24T14:40:56.548883504 0.011612s notice: Loading data from directory C:\\Users\\asoc0\\OneDrive\\Belgeler\\Javacript Projects\\webPlayer\\rethinkdb\\rethinkdb_data
+2019-04-24T14:40:56.672552100 0.134522s info: Automatically using cache size of 3729 MB
+2019-04-24T14:40:56.674546700 0.136412s notice: Listening for intracluster connections on port 29015
+2019-04-24T14:40:56.675544300 0.137913s notice: Listening for client driver connections on port 28015
+2019-04-24T14:40:56.675544301 0.138095s notice: Listening for administrative HTTP connections on port 8080
+2019-04-24T14:40:56.675544302 0.138096s notice: Listening on cluster address: 127.0.0.1
+2019-04-24T14:40:56.675544303 0.138098s notice: Listening on driver address: 127.0.0.1
+2019-04-24T14:40:56.675544304 0.138098s notice: Listening on http address: 127.0.0.1
+2019-04-24T14:40:56.675544305 0.138099s notice: To fully expose RethinkDB on the network, bind to all addresses by running rethinkdb with the `--bind all` command line option.
+2019-04-24T14:40:56.675544306 0.138101s notice: Server ready, "Gandalfs_Pc_New_df8" cab03d74-818d-4802-b849-4fcb44eeca65
+2019-04-24T14:43:37.412279800 160.875014s info: Table e3c73f83-0fc6-4160-86b3-19be9fff39f8: Starting a new Raft election for term 1.
+2019-04-24T14:43:37.413279900 160.875406s info: Table e3c73f83-0fc6-4160-86b3-19be9fff39f8: Added replica on this server.
+2019-04-24T14:43:37.414280500 160.876579s info: Table e3c73f83-0fc6-4160-86b3-19be9fff39f8: This server is Raft leader for term 1. Latest log index is 0.
+2019-04-24T16:07:25.943031600 5189.405116s notice: Server got Control-C; shutting down...
+2019-04-24T16:07:25.943031601 5189.405514s notice: Shutting down client connections...
+2019-04-24T16:07:25.944028600 5189.406057s notice: All client connections closed.
+2019-04-24T16:07:25.944028601 5189.406061s notice: Shutting down storage engine... (This may take a while if you had a lot of unflushed data in the writeback cache.)
+2019-04-24T16:07:25.949015300 5189.411238s notice: Storage engine shut down.
+2019-04-24T17:24:39.689557000 0.008774s notice: Running rethinkdb 2.3.6-windows (MSC 190024215)...
+2019-04-24T17:24:39.689557001 0.008910s notice: Running on 6.2.9200 (Windows 8, Server 2012)
+2019-04-24T17:24:39.689557002 0.009018s notice: Loading data from directory C:\\Users\\asoc0\\OneDrive\\Belgeler\\Javacript Projects\\webPlayer\\rethinkdb\\rethinkdb_data
+2019-04-24T17:24:39.695535400 0.014370s info: Automatically using cache size of 4824 MB
+2019-04-24T17:24:39.696533500 0.015970s notice: Listening for intracluster connections on port 29015
+2019-04-24T17:24:39.702517300 0.021350s notice: Listening for client driver connections on port 28015
+2019-04-24T17:24:39.702517301 0.021464s notice: Listening for administrative HTTP connections on port 8080
+2019-04-24T17:24:39.702517302 0.021466s notice: Listening on cluster address: 127.0.0.1
+2019-04-24T17:24:39.702517303 0.021466s notice: Listening on driver address: 127.0.0.1
+2019-04-24T17:24:39.702517304 0.021466s notice: Listening on http address: 127.0.0.1
+2019-04-24T17:24:39.702517305 0.021471s notice: To fully expose RethinkDB on the network, bind to all addresses by running rethinkdb with the `--bind all` command line option.
+2019-04-24T17:24:39.702517306 0.021472s notice: Server ready, "Gandalfs_Pc_New_df8" cab03d74-818d-4802-b849-4fcb44eeca65
+2019-04-24T17:24:41.182953600 1.501614s info: Table e3c73f83-0fc6-4160-86b3-19be9fff39f8: Starting a new Raft election for term 2.
+2019-04-24T17:24:41.183947200 1.502835s info: Table e3c73f83-0fc6-4160-86b3-19be9fff39f8: This server is Raft leader for term 2. Latest log index is 2.
+2019-04-24T17:24:41.692160200 2.011455s notice: Server got Control-C; shutting down...
+2019-04-24T17:24:41.692160201 2.011509s notice: Shutting down client connections...
+2019-04-24T17:24:41.692160202 2.011628s notice: All client connections closed.
+2019-04-24T17:24:41.692160203 2.011630s notice: Shutting down storage engine... (This may take a while if you had a lot of unflushed data in the writeback cache.)
+2019-04-24T17:24:41.697146800 2.015944s notice: Storage engine shut down.
+2019-04-24T17:24:50.382921900 0.009416s notice: Running rethinkdb 2.3.6-windows (MSC 190024215)...
+2019-04-24T17:24:50.382921901 0.009609s notice: Running on 6.2.9200 (Windows 8, Server 2012)
+2019-04-24T17:24:50.382921902 0.009771s notice: Loading data from directory C:\\Users\\asoc0\\OneDrive\\Belgeler\\Javacript Projects\\webPlayer\\rethinkdb\\rethinkdb_data
+2019-04-24T17:24:50.388918600 0.015580s info: Automatically using cache size of 4838 MB
+2019-04-24T17:24:50.390900500 0.017429s notice: Listening for intracluster connections on port 29015
+2019-04-24T17:24:50.397880900 0.024494s notice: Listening for client driver connections on port 28015
+2019-04-24T17:24:50.397880901 0.024614s notice: Listening for administrative HTTP connections on port 8080
+2019-04-24T17:24:50.397880902 0.024616s notice: Listening on cluster address: 127.0.0.1
+2019-04-24T17:24:50.397880903 0.024616s notice: Listening on driver address: 127.0.0.1
+2019-04-24T17:24:50.397880904 0.024617s notice: Listening on http address: 127.0.0.1
+2019-04-24T17:24:50.397880905 0.024622s notice: To fully expose RethinkDB on the network, bind to all addresses by running rethinkdb with the `--bind all` command line option.
+2019-04-24T17:24:50.397880906 0.024623s notice: Server ready, "Gandalfs_Pc_New_df8" cab03d74-818d-4802-b849-4fcb44eeca65
+2019-04-24T17:24:51.516508400 1.142702s info: Table e3c73f83-0fc6-4160-86b3-19be9fff39f8: Starting a new Raft election for term 3.
+2019-04-24T17:24:51.517467300 1.143775s info: Table e3c73f83-0fc6-4160-86b3-19be9fff39f8: This server is Raft leader for term 3. Latest log index is 5.
+2019-04-24T18:21:21.408698500 3391.034733s notice: Removing file C:\\Users\\asoc0\\OneDrive\\Belgeler\\Javacript Projects\\webPlayer\\rethinkdb\\rethinkdb_data\\e3c73f83-0fc6-4160-86b3-19be9fff39f8
+2019-04-24T18:21:21.408698501 3391.034737s info: Table e3c73f83-0fc6-4160-86b3-19be9fff39f8: Deleted the table.
+2019-04-24T18:21:25.337139100 3394.963259s info: Table 76d0722f-dda4-4116-bb05-1f69f91822e7: Starting a new Raft election for term 1.
+2019-04-24T18:21:25.337139101 3394.963356s info: Table 76d0722f-dda4-4116-bb05-1f69f91822e7: Added replica on this server.
+2019-04-24T18:21:25.338121000 3394.964570s info: Table 76d0722f-dda4-4116-bb05-1f69f91822e7: This server is Raft leader for term 1. Latest log index is 0.
+2019-04-24T18:26:30.394218200 3700.020373s notice: Server got Control-C; shutting down...
+2019-04-24T18:26:30.394218201 3700.020645s notice: Shutting down client connections...
+2019-04-24T18:26:30.394218202 3700.020712s notice: All client connections closed.
+2019-04-24T18:26:30.394218203 3700.020714s notice: Shutting down storage engine... (This may take a while if you had a lot of unflushed data in the writeback cache.)
+2019-04-24T18:26:30.398232300 3700.024999s notice: Storage engine shut down.
+2019-04-24T18:46:52.973200700 0.009465s notice: Running rethinkdb 2.3.6-windows (MSC 190024215)...
+2019-04-24T18:46:52.973200701 0.009643s notice: Running on 6.2.9200 (Windows 8, Server 2012)
+2019-04-24T18:46:52.973200702 0.009810s notice: Loading data from directory C:\\Users\\asoc0\\OneDrive\\Belgeler\\Javacript Projects\\webPlayer\\rethinkdb\\rethinkdb_data
+2019-04-24T18:46:52.979168400 0.015655s info: Automatically using cache size of 4021 MB
+2019-04-24T18:46:52.981162300 0.017346s notice: Listening for intracluster connections on port 29015
+2019-04-24T18:46:52.988143800 0.024310s notice: Listening for client driver connections on port 28015
+2019-04-24T18:46:52.988143801 0.024432s notice: Listening for administrative HTTP connections on port 8080
+2019-04-24T18:46:52.988143802 0.024433s notice: Listening on cluster address: 127.0.0.1
+2019-04-24T18:46:52.988143803 0.024433s notice: Listening on driver address: 127.0.0.1
+2019-04-24T18:46:52.988143804 0.024434s notice: Listening on http address: 127.0.0.1
+2019-04-24T18:46:52.988143805 0.024440s notice: To fully expose RethinkDB on the network, bind to all addresses by running rethinkdb with the `--bind all` command line option.
+2019-04-24T18:46:52.988143806 0.024440s notice: Server ready, "Gandalfs_Pc_New_df8" cab03d74-818d-4802-b849-4fcb44eeca65
+2019-04-24T18:46:54.350637400 1.386546s info: Table 76d0722f-dda4-4116-bb05-1f69f91822e7: Starting a new Raft election for term 2.
+2019-04-24T18:46:54.351634000 1.387860s info: Table 76d0722f-dda4-4116-bb05-1f69f91822e7: This server is Raft leader for term 2. Latest log index is 2.
+2019-04-24T18:50:24.550093000 211.586890s notice: Server got Control-C; shutting down...
+2019-04-24T18:50:24.551089800 211.586984s notice: Shutting down client connections...
+2019-04-24T18:50:24.551089801 211.587090s notice: All client connections closed.
+2019-04-24T18:50:24.551089802 211.587091s notice: Shutting down storage engine... (This may take a while if you had a lot of unflushed data in the writeback cache.)
+2019-04-24T18:50:24.555079300 211.591133s notice: Storage engine shut down.
+2019-04-24T18:53:32.578200000 0.009190s notice: Running rethinkdb 2.3.6-windows (MSC 190024215)...
+2019-04-24T18:53:32.578200001 0.009311s notice: Running on 6.2.9200 (Windows 8, Server 2012)
+2019-04-24T18:53:32.578200002 0.009426s notice: Loading data from directory C:\\Users\\asoc0\\OneDrive\\Belgeler\\Javacript Projects\\webPlayer\\rethinkdb\\rethinkdb_data
+2019-04-24T18:53:32.584181200 0.015379s info: Automatically using cache size of 3995 MB
+2019-04-24T18:53:32.586175200 0.017037s notice: Listening for intracluster connections on port 29015
+2019-04-24T18:53:32.593155700 0.024164s notice: Listening for client driver connections on port 28015
+2019-04-24T18:53:32.593155701 0.024283s notice: Listening for administrative HTTP connections on port 8080
+2019-04-24T18:53:32.593155702 0.024284s notice: Listening on cluster address: 127.0.0.1
+2019-04-24T18:53:32.593155703 0.024284s notice: Listening on driver address: 127.0.0.1
+2019-04-24T18:53:32.593155704 0.024285s notice: Listening on http address: 127.0.0.1
+2019-04-24T18:53:32.593155705 0.024291s notice: To fully expose RethinkDB on the network, bind to all addresses by running rethinkdb with the `--bind all` command line option.
+2019-04-24T18:53:32.593155706 0.024292s notice: Server ready, "Gandalfs_Pc_New_df8" cab03d74-818d-4802-b849-4fcb44eeca65
+2019-04-24T18:53:33.676880300 1.107343s info: Table 76d0722f-dda4-4116-bb05-1f69f91822e7: Starting a new Raft election for term 3.
+2019-04-24T18:53:33.677784900 1.108918s info: Table 76d0722f-dda4-4116-bb05-1f69f91822e7: This server is Raft leader for term 3. Latest log index is 5.
+2019-04-24T18:53:40.641642500 8.072688s notice: Server got Control-C; shutting down...
+2019-04-24T18:53:40.641642501 8.072754s notice: Shutting down client connections...
+2019-04-24T18:53:40.641642502 8.072865s notice: All client connections closed.
+2019-04-24T18:53:40.641642503 8.072867s notice: Shutting down storage engine... (This may take a while if you had a lot of unflushed data in the writeback cache.)
+2019-04-24T18:53:40.645610700 8.076731s notice: Storage engine shut down.
+2019-04-24T23:39:46.046108400 0.010670s notice: Running rethinkdb 2.3.6-windows (MSC 190024215)...
+2019-04-24T23:39:46.046108401 0.010968s notice: Running on 6.2.9200 (Windows 8, Server 2012)
+2019-04-24T23:39:46.049094700 0.013305s notice: Loading data from directory C:\\Users\\asoc0\\OneDrive\\Belgeler\\Javacript Projects\\webPlayer\\rethinkdb\\rethinkdb_data
+2019-04-24T23:39:46.058070500 0.022560s info: Automatically using cache size of 3838 MB
+2019-04-24T23:39:46.060097100 0.024515s notice: Listening for intracluster connections on port 29015
+2019-04-24T23:39:46.070037800 0.034816s notice: Listening for client driver connections on port 28015
+2019-04-24T23:39:46.070037801 0.034919s notice: Listening for administrative HTTP connections on port 8080
+2019-04-24T23:39:46.070037802 0.034920s notice: Listening on cluster address: 127.0.0.1
+2019-04-24T23:39:46.070037803 0.034921s notice: Listening on driver address: 127.0.0.1
+2019-04-24T23:39:46.070037804 0.034921s notice: Listening on http address: 127.0.0.1
+2019-04-24T23:39:46.070037805 0.034927s notice: To fully expose RethinkDB on the network, bind to all addresses by running rethinkdb with the `--bind all` command line option.
+2019-04-24T23:39:46.070037806 0.034928s notice: Server ready, "Gandalfs_Pc_New_df8" cab03d74-818d-4802-b849-4fcb44eeca65
+2019-04-24T23:39:47.428012300 1.393002s info: Table 76d0722f-dda4-4116-bb05-1f69f91822e7: Starting a new Raft election for term 4.
+2019-04-24T23:39:47.429915200 1.394875s info: Table 76d0722f-dda4-4116-bb05-1f69f91822e7: This server is Raft leader for term 4. Latest log index is 8.
+2019-04-24T23:39:55.246777400 0.008331s notice: Running rethinkdb 2.3.6-windows (MSC 190024215)...
+2019-04-24T23:39:55.246777401 0.008468s notice: Running on 6.2.9200 (Windows 8, Server 2012)
+2019-04-24T23:39:55.246777402 0.008595s notice: Loading data from directory C:\\Users\\asoc0\\OneDrive\\Belgeler\\Javacript Projects\\webPlayer\\rethinkdb\\rethinkdb_data
+2019-04-24T23:39:55.251764300 0.012807s info: Automatically using cache size of 3839 MB
+2019-04-24T23:39:55.252761500 0.014297s notice: Listening for intracluster connections on port 29015
+2019-04-24T23:39:55.259743500 0.020814s notice: Listening for client driver connections on port 28015
+2019-04-24T23:39:55.259743501 0.020952s notice: Listening for administrative HTTP connections on port 8080
+2019-04-24T23:39:55.259743502 0.020953s notice: Listening on cluster address: 127.0.0.1
+2019-04-24T23:39:55.259743503 0.020961s notice: Listening on driver address: 127.0.0.1
+2019-04-24T23:39:55.259743504 0.020961s notice: Listening on http address: 127.0.0.1
+2019-04-24T23:39:55.259743505 0.020962s notice: To fully expose RethinkDB on the network, bind to all addresses by running rethinkdb with the `--bind all` command line option.
+2019-04-24T23:39:55.259743506 0.020965s notice: Server ready, "Gandalfs_Pc_New_df8" cab03d74-818d-4802-b849-4fcb44eeca65
+2019-04-24T23:39:56.354845400 1.115896s info: Table 76d0722f-dda4-4116-bb05-1f69f91822e7: Starting a new Raft election for term 5.
+2019-04-24T23:39:56.355842200 1.117202s info: Table 76d0722f-dda4-4116-bb05-1f69f91822e7: This server is Raft leader for term 5. Latest log index is 11.
+2019-04-24T23:41:50.317749700 115.078689s notice: Server got Control-C; shutting down...
+2019-04-24T23:41:50.317749701 115.078751s notice: Shutting down client connections...
+2019-04-24T23:41:50.317749702 115.078893s notice: All client connections closed.
+2019-04-24T23:41:50.317749703 115.078895s notice: Shutting down storage engine... (This may take a while if you had a lot of unflushed data in the writeback cache.)
+2019-04-24T23:41:50.321724700 115.083591s notice: Storage engine shut down.
+2019-04-24T23:44:50.639314500 0.009377s notice: Running rethinkdb 2.3.6-windows (MSC 190024215)...
+2019-04-24T23:44:50.639314501 0.009544s notice: Running on 6.2.9200 (Windows 8, Server 2012)
+2019-04-24T23:44:50.640311700 0.009770s notice: Loading data from directory C:\\Users\\asoc0\\OneDrive\\Belgeler\\Javacript Projects\\webPlayer\\rethinkdb\\rethinkdb_data
+2019-04-24T23:44:50.646303600 0.016068s info: Automatically using cache size of 4096 MB
+2019-04-24T23:44:50.648291100 0.017757s notice: Listening for intracluster connections on port 29015
+2019-04-24T23:44:50.657280700 0.026937s notice: Listening for client driver connections on port 28015
+2019-04-24T23:44:50.657280701 0.027138s notice: Listening for administrative HTTP connections on port 8080
+2019-04-24T23:44:50.657280702 0.027140s notice: Listening on cluster address: 127.0.0.1
+2019-04-24T23:44:50.657280703 0.027140s notice: Listening on driver address: 127.0.0.1
+2019-04-24T23:44:50.657280704 0.027146s notice: Listening on http address: 127.0.0.1
+2019-04-24T23:44:50.657280705 0.027147s notice: To fully expose RethinkDB on the network, bind to all addresses by running rethinkdb with the `--bind all` command line option.
+2019-04-24T23:44:50.657280706 0.027147s notice: Server ready, "Gandalfs_Pc_New_df8" cab03d74-818d-4802-b849-4fcb44eeca65
+2019-04-24T23:44:51.771836100 1.141277s info: Table 76d0722f-dda4-4116-bb05-1f69f91822e7: Starting a new Raft election for term 6.
+2019-04-24T23:44:51.772833600 1.142322s info: Table 76d0722f-dda4-4116-bb05-1f69f91822e7: This server is Raft leader for term 6. Latest log index is 14.
+2019-04-25T00:14:01.528914900 1750.898353s notice: Server got Control-C; shutting down...
+2019-04-25T00:14:01.528914901 1750.898451s notice: Shutting down client connections...
+2019-04-25T00:14:01.528914902 1750.898722s notice: All client connections closed.
+2019-04-25T00:14:01.528914903 1750.898725s notice: Shutting down storage engine... (This may take a while if you had a lot of unflushed data in the writeback cache.)
+2019-04-25T00:14:01.530909600 1750.900763s notice: Storage engine shut down.
+2019-04-25T15:26:48.250202700 0.015588s notice: Running rethinkdb 2.3.6-windows (MSC 190024215)...
+2019-04-25T15:26:48.251179200 0.016209s notice: Running on 6.2.9200 (Windows 8, Server 2012)
+2019-04-25T15:26:48.251179201 0.016267s notice: Loading data from directory C:\\Users\\asoc0\\OneDrive\\Belgeler\\Javacript Projects\\webPlayer\\rethinkdb\\rethinkdb_data
+2019-04-25T15:26:48.271129100 0.036678s info: Automatically using cache size of 4416 MB
+2019-04-25T15:26:48.275118500 0.040750s notice: Listening for intracluster connections on port 29015
+2019-04-25T15:26:48.302059800 0.066924s notice: Listening for client driver connections on port 28015
+2019-04-25T15:26:48.302059801 0.067040s notice: Listening for administrative HTTP connections on port 8080
+2019-04-25T15:26:48.302059802 0.067041s notice: Listening on cluster address: 127.0.0.1
+2019-04-25T15:26:48.302059803 0.067053s notice: Listening on driver address: 127.0.0.1
+2019-04-25T15:26:48.302059804 0.067054s notice: Listening on http address: 127.0.0.1
+2019-04-25T15:26:48.302059805 0.067055s notice: To fully expose RethinkDB on the network, bind to all addresses by running rethinkdb with the `--bind all` command line option.
+2019-04-25T15:26:48.302059806 0.067055s notice: Server ready, "Gandalfs_Pc_New_df8" cab03d74-818d-4802-b849-4fcb44eeca65
+2019-04-25T15:26:49.678341200 1.443097s info: Table 76d0722f-dda4-4116-bb05-1f69f91822e7: Starting a new Raft election for term 7.
+2019-04-25T15:26:49.679359000 1.444892s info: Table 76d0722f-dda4-4116-bb05-1f69f91822e7: This server is Raft leader for term 7. Latest log index is 17.
+2019-04-25T18:24:23.832843700 10655.598481s notice: Removing file C:\\Users\\asoc0\\OneDrive\\Belgeler\\Javacript Projects\\webPlayer\\rethinkdb\\rethinkdb_data\\76d0722f-dda4-4116-bb05-1f69f91822e7
+2019-04-25T18:24:23.832843701 10655.598486s info: Table 76d0722f-dda4-4116-bb05-1f69f91822e7: Deleted the table.
+2019-04-25T18:28:36.781793000 10908.546944s info: Table 1a527d3b-20ee-401f-9b87-53a98123dcf5: Starting a new Raft election for term 1.
+2019-04-25T18:28:36.781793001 10908.547094s info: Table 1a527d3b-20ee-401f-9b87-53a98123dcf5: Added replica on this server.
+2019-04-25T18:28:36.782790500 10908.548331s info: Table 1a527d3b-20ee-401f-9b87-53a98123dcf5: This server is Raft leader for term 1. Latest log index is 0.
+2019-04-25T18:36:14.570872300 11366.336308s notice: Removing file C:\\Users\\asoc0\\OneDrive\\Belgeler\\Javacript Projects\\webPlayer\\rethinkdb\\rethinkdb_data\\1a527d3b-20ee-401f-9b87-53a98123dcf5
+2019-04-25T18:36:14.570872301 11366.336313s info: Table 1a527d3b-20ee-401f-9b87-53a98123dcf5: Deleted the table.
+2019-04-25T19:01:05.822074300 12857.587012s info: Table 4dac0fd1-56f0-47ea-beec-db02a00cb337: Starting a new Raft election for term 1.
+2019-04-25T19:01:05.822074301 12857.587111s info: Table 4dac0fd1-56f0-47ea-beec-db02a00cb337: Added replica on this server.
+2019-04-25T19:01:05.823069300 12857.588348s info: Table 4dac0fd1-56f0-47ea-beec-db02a00cb337: This server is Raft leader for term 1. Latest log index is 0.
+2019-04-25T19:43:57.989588900 15429.754448s notice: Server got Control-C; shutting down...
+2019-04-25T19:43:57.989588901 15429.754585s notice: Shutting down client connections...
+2019-04-25T19:43:57.989588902 15429.754962s notice: All client connections closed.
+2019-04-25T19:43:57.989588903 15429.754964s notice: Shutting down storage engine... (This may take a while if you had a lot of unflushed data in the writeback cache.)
+2019-04-25T19:43:57.993578000 15429.758349s notice: Storage engine shut down.
