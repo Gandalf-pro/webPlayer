@@ -1,0 +1,20 @@
+body{
+    background-image: url("https://images.wallpaperscraft.com/image/triangles_background_light_91693_1920x1080.jpg");
+}
+
+
+.show-list {
+    align-self: auto;
+}
+
+.container {
+    overflow: hidden;
+}
+
+li {
+    display: list-item;
+}
+
+#shows ul li {
+    padding: 10px;
+}

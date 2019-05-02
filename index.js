@@ -2,17 +2,30 @@ const express = require('express');
 const cors = require('cors');
 const app = express();
 const path = require('path');
-const { Client } = require('pg');
-const client = new Client({
-    user: 'syncedPlay',
-    host: 'localhost',
-    database: 'sessions',
-    password: '123',
-    port: 5432,
+const MongoClient = require('mongodb').MongoClient;
+const assert = require('assert');
+
+
+//database
+const dbUrl = 'mongodb://localhost:27017';
+const dbName = 'syncedPlay';
+
+const client = new MongoClient(dbUrl);
+const connection = client.connect().then((result) => {
+    console.log('connected to mongo db');
+}).catch((err) => {
+    throw err;
 });
 
 //database
-client.connect().then(console.log(client)); 
+// MongoClient.connect(dbUrl, function (err, client) {
+//     assert.equal(null, err);
+//     console.log("Connected successfully to mongo db server");
+//     const db = client.db(dbName);
+//     db.collection('rooms');
+
+//     client.close;
+// });
 
 //express server
 app.listen(4000, () => {
@@ -21,7 +34,9 @@ app.listen(4000, () => {
 
 
 app.use(cors());
- 
+
+
+
 
 
 
@@ -54,30 +69,140 @@ app.get('/sessions.css', (req, res) => {
     res.sendFile(path.join(__dirname, '/SessionsPages/sessions.css'));
 });
 
-class user{
-    constructor(name) {
-        this.name = name;
-        this.sesions = [];
+
+
+
+async function addVideoToRoom(dataInfo, video) {
+    const db = client.db(dbName);
+    const coll = db.collection('rooms');
+    var filtr;
+    //if the room has a id
+    try {
+        if (dataInfo._id) {
+            filtr = {
+                '_id': dataInfo._id
+            };
+            //id the room has name
+        } else {
+            filtr = {
+                '_id': dataInfo._id
+            };
+        }
+        await coll.update(filtr, {
+            $addToSet: {
+                'srcs': video
+            }
+        });
+    } catch (error) {
+        console.log(error);
+    }
+
+
+}
+
+async function popVideoFromRoom(dataInfo, video) {
+    const db = client.db(dbName);
+    const coll = db.collection('rooms');
+    var filtr;
+    try {
+        //if the room has a id
+    if (dataInfo._id) {
+        filtr = {
+            '_id': dataInfo._id
+        };
+        //id the room has name
+    } else {
+        filtr = {
+            '_id': dataInfo._id
+        };
+    }
+    await coll.update(filtr, {
+        $pull: {
+            'srcs': video
+        }
+    });
+    } catch (error) {
+        console.log(error);      
     }
 }
 
-async function addSessionToDb(db_data) {
-  
+
+async function addSessionToDb(db_data, ip) {
+    let doc = JSON.parse(db_data);
+    let realDoc = {
+        users: [{
+            username: doc.username,
+            ip: ip,
+            admin: true
+        }],
+        roomName: doc.roomName,
+        roomPass: doc.roomPass,
+        srcs: []
+    };
+    const db = client.db(dbName);
+    const coll = db.collection('rooms');
+    let coun = await coll.find({
+        'roomName': doc.roomName
+    }).count();
+    if (coun > 0) {
+        console.error('name exists');
+        return;
+    }
+    coll.insertOne(realDoc).then((result) => {
+        console.log('succesfully created a room');
+    }).catch((err) => {
+        throw err;
+    });;
 }
 
-function addUserToSession(db_data) {
-    
+async function addUserToSession(db_data, ip) {
+    let doc = JSON.parse(db_data);
+
+    const db = client.db(dbName);
+    const coll = db.collection('rooms');
+    let rom = await coll.findOne({
+        'roomName': doc.roomName
+    });
+    //no room
+    if (!rom) {
+        console.error('room doesnt exists');
+        return;
+    }
+    //wrong password
+    if (doc.roomPass != rom.roomPass) {
+        console.error('passwords dont match');
+        return;
+    }
+    let pushData = {
+        username: doc.username,
+        ip: ip
+    };
+    rom.users.push(pushData);
+    rom = rom.users;
+
+    //update the db
+    coll.updateOne({
+        roomName: doc.roomName
+    }, {
+        $set: {
+            'users': rom
+        }
+    }).then((result) => {
+        console.log('login succesful updated the db');
+    }).catch((err) => {
+        throw err;
+    });
+
 }
 
-app.get('/sesapi', (req, res)=>{
+app.get('/sesapi', (req, res) => {
     if (req.query.type == 'create') {
-        console.log('create');
-        addSessionToDb(req.query.data);
+        addSessionToDb(req.query.data, req.ip);
     } else if (req.query.type == 'join') {
         console.log('join');
-        addUserToSession(req.query.data);
+        addUserToSession(req.query.data, req.ip);
     }
-    
+
 
 });
 

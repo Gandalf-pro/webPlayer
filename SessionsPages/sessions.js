@@ -18,8 +18,8 @@ function getDataReady() {
     }
     let data = {
         username: username.value,
-        sessionName: session.value,
-        sessionPassword: password.value
+        roomName: session.value,
+        roomPass: password.value
     }
     console.log(data);
     return data;

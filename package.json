@@ -19,6 +19,7 @@
   "dependencies": {
     "cors": "^2.8.5",
     "express": "^4.16.4",
+    "mongodb": "^3.2.3",
     "pg": "^7.10.0",
     "rethinkdb": "^2.3.3"
   }
