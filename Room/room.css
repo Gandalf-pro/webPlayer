@@ -2,19 +2,57 @@ body{
     background-image: url("https://images.wallpaperscraft.com/image/triangles_background_light_91693_1920x1080.jpg");
 }
 
-
-.show-list {
-    align-self: auto;
+.clr {
+    clear: both;
 }
 
-.container {
+#main-content {
+    width:1260px;
+    margin:32px auto;
+    background-color:#1b1d1d;
+    position: relative;
     overflow: hidden;
+    height: 2000px;
+}
+
+#video-player {
+    float:left;
+    width: 70%;
+}
+
+#show-list {
+    float:right;
+    width:30%;
+    border:2px;
+    border-color: blue;
+}
+
+footer {
+    position: absolute;
+    box-sizing: border-box;
+    bottom:0%;
+    width:calc(100% - 16px);
+    color:#2e3031;
+    margin: 16px 8px;
+    
+}
+
+footer p {
+    color:rgb(250, 240, 240);   
+    text-align:center;
 }
 
 li {
-    display: list-item;
+    list-style:none;
+    padding-top:5px;
 }
 
-#shows ul li {
-    padding: 10px;
+a {
+    text-decoration: none;
+    color:white;
 }
+
+a:hover {
+    color:red;
+}
+

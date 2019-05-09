@@ -7,6 +7,8 @@ var password = document.querySelector('.session_password_input');
 
 
 
+
+
 function getDataReady() {
     if (username.value.length < 1) {
         alert('enter a username');
@@ -26,19 +28,51 @@ function getDataReady() {
 }
 
 //create a session
+// createButton.addEventListener('click', () => {
+//     let url = 'http://' + window.location.host + '/sesapi';
+//     let data = getDataReady();
+//     if (data != null) {
+//         fetch(url + '?type=create&data=' + JSON.stringify(data));
+//     }
+// });
+
 createButton.addEventListener('click', () => {
     let url = 'http://' + window.location.host + '/sesapi';
-    let data = getDataReady();
+    const data = getDataReady();
     if (data != null) {
-        fetch(url + '?type=create&data=' + JSON.stringify(data));
+        fetch(url + '?type=create', {
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data),
+            method: "POST"
+        }).then(res => {
+            res.text().then(val => {
+                console.log(val);
+                // gotoRoomId(val);
+            })
+        });
     }
 });
 
-//login a session
+function gotoRoomId(id) {
+    let loc = window.location.protocol + window.location.host + "/";
+    window.location.href = loc + id;    
+}
+
+
+
+
 loginButton.addEventListener('click', () => {
     let url = 'http://' + window.location.host + '/sesapi';
     let data = getDataReady();
     if (data != null) {
-        fetch(url + '?type=join&data=' + JSON.stringify(data));
+        fetch(url + '?type=join',{
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data),
+            method: "POST"
+        });
     }
 });

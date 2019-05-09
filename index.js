@@ -1,9 +1,11 @@
 const express = require('express');
 const cors = require('cors');
+const bodyParser = require('body-parser');
 const app = express();
 const path = require('path');
 const MongoClient = require('mongodb').MongoClient;
 const assert = require('assert');
+const ws = require('ws');
 
 
 //database
@@ -27,13 +29,50 @@ const connection = client.connect().then((result) => {
 //     client.close;
 // });
 
+
+// Websocket
+const wss = new ws.Server({
+    port: 8080,
+    perMessageDeflate: {
+        zlibDeflateOptions: {
+            chunkSize: 1024,
+            memLevel: 7,
+            level: 3
+        },
+        clientNoContextTakeover: true,
+        serverNoContextTakeover: true,
+        serverMaxWindowBits: 10,
+        concurrencyLimit: 10,
+        threshold: 1024
+    }
+});
+
+var SOCKETS = [];
+wss.on("connection", (wsIn, req) => {
+    console.log("New Client");
+    SOCKETS.push(wsIn);
+    console.log(req.headers.from);
+    console.log(req.headers.host);
+    wsIn.on("message", (message) => {
+        console.log(message);
+    })
+    wsIn.on("close", (code, reason) => {
+        
+    });
+});
+
+
+
+
+app.use(cors());
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+
+
 //express server
 app.listen(4000, () => {
     console.log('Server Works !!! At port 4000');
 });
-
-
-app.use(cors());
 
 
 
@@ -68,6 +107,21 @@ app.get('/sessions.js', (req, res) => {
 app.get('/sessions.css', (req, res) => {
     res.sendFile(path.join(__dirname, '/SessionsPages/sessions.css'));
 });
+
+app.get('/room/room.css', (req, res) => {
+    res.sendFile(path.join(__dirname, '/Room/room.css'));
+});
+
+app.get('/room/room.js', (req, res) => {
+    res.sendFile(path.join(__dirname, '/Room/room.js'));
+});
+
+app.get('/room/*', (req, res) => {
+    let id = req.url;
+    id = id.slice(6, id.length);
+    res.sendFile(path.join(__dirname, '/Room/room.html'))
+});
+
 
 
 
@@ -106,29 +160,30 @@ async function popVideoFromRoom(dataInfo, video) {
     var filtr;
     try {
         //if the room has a id
-    if (dataInfo._id) {
-        filtr = {
-            '_id': dataInfo._id
-        };
-        //id the room has name
-    } else {
-        filtr = {
-            '_id': dataInfo._id
-        };
-    }
-    await coll.update(filtr, {
-        $pull: {
-            'srcs': video
+        if (dataInfo._id) {
+            filtr = {
+                '_id': dataInfo._id
+            };
+            //id the room has name
+        } else {
+            filtr = {
+                '_id': dataInfo._id
+            };
         }
-    });
+        await coll.update(filtr, {
+            $pull: {
+                'srcs': video
+            }
+        });
     } catch (error) {
-        console.log(error);      
+        console.log(error);
     }
 }
 
 
 async function addSessionToDb(db_data, ip) {
-    let doc = JSON.parse(db_data);
+    let id;
+    let doc = db_data;
     let realDoc = {
         users: [{
             username: doc.username,
@@ -145,18 +200,18 @@ async function addSessionToDb(db_data, ip) {
         'roomName': doc.roomName
     }).count();
     if (coun > 0) {
-        console.error('name exists');
-        return;
+        throw "room name exists";
     }
     coll.insertOne(realDoc).then((result) => {
         console.log('succesfully created a room');
+        return result.insertedId;
     }).catch((err) => {
         throw err;
     });;
 }
 
 async function addUserToSession(db_data, ip) {
-    let doc = JSON.parse(db_data);
+    let doc = db_data;
 
     const db = client.db(dbName);
     const coll = db.collection('rooms');
@@ -165,13 +220,11 @@ async function addUserToSession(db_data, ip) {
     });
     //no room
     if (!rom) {
-        console.error('room doesnt exists');
-        return;
+        throw "room doesnt exists";
     }
     //wrong password
     if (doc.roomPass != rom.roomPass) {
-        console.error('passwords dont match');
-        return;
+        throw "passwords dont match";
     }
     let pushData = {
         username: doc.username,
@@ -195,16 +248,28 @@ async function addUserToSession(db_data, ip) {
 
 }
 
-app.get('/sesapi', (req, res) => {
+app.post('/sesapi', (req, res) => {
     if (req.query.type == 'create') {
-        addSessionToDb(req.query.data, req.ip);
+        let id = addSessionToDb(req.body, req.ip).catch(err => {
+            console.log(err);
+            res.send(err);
+        }).then(bam => {
+            res.send(id);
+        });
     } else if (req.query.type == 'join') {
-        console.log('join');
-        addUserToSession(req.query.data, req.ip);
+        addUserToSession(req.body, req.ip).catch(err => {
+            console.log(err);
+            res.send(err);
+        }).then(bam => {
+            res.send("ok");
+        });
+       
     }
 
-
 });
+
+
+
 
 app.get('/download', (req, res) => {
     var URL = req.query.URL;
@@ -212,3 +277,5 @@ app.get('/download', (req, res) => {
         url: URL
     });
 });
+
+
