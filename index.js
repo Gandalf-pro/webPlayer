@@ -57,7 +57,7 @@ wss.on("connection", (wsIn, req) => {
         console.log(message);
     })
     wsIn.on("close", (code, reason) => {
-        
+
     });
 });
 
@@ -65,7 +65,9 @@ wss.on("connection", (wsIn, req) => {
 
 
 app.use(cors());
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({
+    extended: false
+}));
 app.use(bodyParser.json());
 
 
@@ -188,6 +190,7 @@ async function addSessionToDb(db_data, ip) {
         users: [{
             username: doc.username,
             ip: ip,
+            appended: false,
             admin: true
         }],
         roomName: doc.roomName,
@@ -228,7 +231,8 @@ async function addUserToSession(db_data, ip) {
     }
     let pushData = {
         username: doc.username,
-        ip: ip
+        ip: ip,
+        appended = false
     };
     rom.users.push(pushData);
     rom = rom.users;
@@ -263,11 +267,29 @@ app.post('/sesapi', (req, res) => {
         }).then(bam => {
             res.send("ok");
         });
-       
+
     }
 
 });
 
+app.get('/sesapi', (req, res) => {
+    if (req.query.type == 'getUsers') {
+        let ret = getUsersOnRoom(req.body._id).then(res.send(ret));
+    }
+});
+
+//returns json string with users on the room id
+async function getUsersOnRoom(roomId) {
+    const db = client.db(dbName);
+    const coll = db.collection('rooms');
+    let data = await coll.findOne({
+        '_id': roomId
+    });
+    if (!data) {
+        return -1;
+    }
+    return JSON.stringify(data.users);
+}
 
 
 
@@ -277,5 +299,3 @@ app.get('/download', (req, res) => {
         url: URL
     });
 });
-
-

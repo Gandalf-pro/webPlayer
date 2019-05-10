@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="room.css">
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <link href="http://vjs.zencdn.net/7.3.0/video-js.min.css" rel="stylesheet">
-    
+
 </head>
 
 <body>
@@ -16,35 +16,49 @@
     <main id="main-content">
         <!-- Player -->
         <div id="video-player">
-            <video id='player' class="video-js vjs-big-play-centered" >
+            <video id='player' class="video-js vjs-big-play-centered">
             </video>
         </div>
-        
-        <!-- Show List -->
-        <div id="show-list" class="sc-list">
-            <ul>
-                <li onclick="func(this)">
-                    <a href="https://www.dizibox.pw/the-100-6-sezon-1-bolum-izle/">
-                        6.Sezon 1.Bölüm
-                    </a>
-                </li>
-                <li>
-                    <a href="#" onclick="bumbam(this)">Click Me</a>
-                </li>
-            </ul>
-        </div>
 
-        <div id="user-list" class="sc-list">
-            <ul>
-                <li onclick="func(this)">
-                    <a href="https://www.dizibox.pw/the-100-6-sezon-1-bolum-izle/">
-                        6.Sezon 1.Bölüm
-                    </a>
-                </li>
-                <li>
-                    <a href="#" onclick="bumbam(this)">Click Me</a>
-                </li>
-            </ul>
+        <!-- right side -->
+        <div id="lists" class="container">
+
+            <!-- url adder -->
+            <div id="url_input_box">
+                <input type="text" id="url_input" placeholder="Url">
+                <input type="text" id="name_input" placeholder="Name">
+                <button id="input_button" onclick="">+</button>
+            </div>
+
+            <!-- shows list -->
+            <div id="show-list" class="sc-list">
+                <h3>Shows</h3>
+                <ul id="show_input">
+                    <li onclick="func(this)">
+                        <a href="https://www.dizibox.pw/the-100-6-sezon-1-bolum-izle/">
+                            6.Sezon 2.Bölüm
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" onclick="bumbam(this)">Click Me</a>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- users list -->
+            <div id="user-list" class="sc-list">
+                <h3>Users</h3>
+                <ul id="user_input">
+                    <li onclick="func(this)">
+                        <a href="https://www.dizibox.pw/the-100-6-sezon-1-bolum-izle/">
+                            6.Sezon 1.Bölüm
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" onclick="bumbam(this)">Click Me</a>
+                    </li>
+                </ul>
+            </div>
         </div>
 
 
@@ -53,9 +67,9 @@
             <p>This is a Gandalf-pro production</p>
         </footer>
     </main>
-    
 
-    
+
+
 </body>
 <script src="http://vjs.zencdn.net/7.3.0/video.min.js"></script>
 <script src="room.js"></script>

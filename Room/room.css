@@ -20,11 +20,30 @@ body{
     width: 70%;
 }
 
-#show-list {
-    float:right;
-    width:30%;
-    border:2px;
-    border-color: blue;
+#lists {
+    float: right;
+    width: 30%;
+}
+
+
+.sc-list li {
+    background-color:#26292B;
+    border-bottom: 1px solid rgba(255,255,255,.05);
+}
+
+.sc-list {
+    padding: 15px 15px;
+    background-color:#111417;
+}
+
+.sc-list h3{
+    color: rgb(173, 179, 143);
+    margin-bottom:4px;
+}
+
+#lists ul {
+    margin: 0px;
+    padding: 0px;
 }
 
 footer {
@@ -45,11 +64,12 @@ footer p {
 li {
     list-style:none;
     padding-top:5px;
+    padding-bottom:5px;
 }
 
 a {
     text-decoration: none;
-    color:white;
+    color:#c8cfd5;
 }
 
 a:hover {
