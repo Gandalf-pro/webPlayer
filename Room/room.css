@@ -76,3 +76,14 @@ a:hover {
     color:red;
 }
 
+.sc-list button {
+    border: 0px;
+    padding: 0px;
+    background-color: transparent;
+    color:#c8cfd5;
+}
+
+.sc-list button:hover {
+    color:red;
+}
+

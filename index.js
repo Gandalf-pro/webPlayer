@@ -50,19 +50,76 @@ const wss = new ws.Server({
 var SOCKETS = [];
 wss.on("connection", (wsIn, req) => {
     console.log("New Client");
-    SOCKETS.push(wsIn);
-    console.log(req.headers.from);
-    console.log(req.headers.host);
-    wsIn.on("message", (message) => {
-        console.log(message);
-    })
-    wsIn.on("close", (code, reason) => {
-
+    mathTheIp(req.connection.remoteAddress).then((ret) => {
+        let socket = {
+            socket: wsIn,
+            ip: req.connection.remoteAddress,
+            room: ret
+        };
+        SOCKETS.push(socket);
     });
+
+    
+
+    wsIn.on("message", (message) => {
+        console.log(message + " from:" + req.connection.remoteAddress);
+        let parsed = JSON.parse(message);
+        if (parsed) {
+            if (parsed.type == 'player') {
+                handlePlayerReq(parsed, req.connection.remoteAddress, SOCKETS.find(x => x.socket == wsIn).room);
+            }
+        }
+    });
+
+    wsIn.on("close", (code, reason) => {
+        console.log('closed connection with code:' + code + ' because:' + reason);
+        let index = SOCKETS.findIndex(x => x.socket == wsIn);
+        removeUserFromDb(SOCKETS[index].room, SOCKETS[index].ip);
+        //remove socket from the array
+        SOCKETS.splice(index, 1);
+    });
+
 });
 
+//removes user from databse
+async function removeUserFromDb(roomName, userIp) {
+    const db = client.db(dbName);
+    const coll = db.collection('rooms');
+    let ja = await coll.findOne({
+        'roomName': roomName
+    });
+    let id = ja._id;
+    let ret = await coll.updateOne(ja, {
+        $pull: {
+            users: {
+                ip: userIp
+            }
+        }
+    });
+    let len = ja.users.length;
+    if (len <= ret.result.ok) {
+        coll.deleteOne({'_id':id});
+    }
+}
+
+//returns a room id based on the ip of the client
+async function mathTheIp(ip) {
+    const db = client.db(dbName);
+    const coll = db.collection('rooms');
+    let ret = await coll.findOne({
+        "users.ip": ip
+    });
+    return ret.roomName;
+}
 
 
+function sendData(data, room) {
+    for (let i = 0; i < SOCKETS.length; i++) {
+        if (SOCKETS[i].room == room) {
+            SOCKETS[i].socket.send(data);
+        }
+    }
+}
 
 app.use(cors());
 app.use(bodyParser.urlencoded({
@@ -184,13 +241,11 @@ async function popVideoFromRoom(dataInfo, video) {
 
 
 async function addSessionToDb(db_data, ip) {
-    let id;
     let doc = db_data;
     let realDoc = {
         users: [{
             username: doc.username,
             ip: ip,
-            appended: false,
             admin: true
         }],
         roomName: doc.roomName,
@@ -205,12 +260,9 @@ async function addSessionToDb(db_data, ip) {
     if (coun > 0) {
         throw "room name exists";
     }
-    coll.insertOne(realDoc).then((result) => {
-        console.log('succesfully created a room');
-        return result.insertedId;
-    }).catch((err) => {
-        throw err;
-    });;
+    let resp = await coll.insertOne(realDoc);
+    return resp.insertedId;
+
 }
 
 async function addUserToSession(db_data, ip) {
@@ -232,42 +284,38 @@ async function addUserToSession(db_data, ip) {
     let pushData = {
         username: doc.username,
         ip: ip,
-        appended = false
     };
     rom.users.push(pushData);
+    let id = rom._id;
     rom = rom.users;
 
+
     //update the db
-    coll.updateOne({
+    let resss = await coll.updateOne({
         roomName: doc.roomName
     }, {
         $set: {
             'users': rom
         }
-    }).then((result) => {
-        console.log('login succesful updated the db');
-    }).catch((err) => {
-        throw err;
     });
+    console.log(id);
+    return id;
 
 }
 
-app.post('/sesapi', (req, res) => {
+app.post('/sesapi', async (req, res) => {
     if (req.query.type == 'create') {
-        let id = addSessionToDb(req.body, req.ip).catch(err => {
+        let id = await addSessionToDb(req.body, req.ip).catch(err => {
             console.log(err);
             res.send(err);
-        }).then(bam => {
-            res.send(id);
         });
+        res.send(id);
     } else if (req.query.type == 'join') {
-        addUserToSession(req.body, req.ip).catch(err => {
+        let id = await addUserToSession(req.body, req.ip).catch(err => {
             console.log(err);
             res.send(err);
-        }).then(bam => {
-            res.send("ok");
         });
-
+        res.send(id);
     }
 
 });
@@ -299,3 +347,33 @@ app.get('/download', (req, res) => {
         url: URL
     });
 });
+
+
+
+//websocket handling
+function sendDataToRoom(room, data, exclude) {
+    for (let i = 0; i < SOCKETS.length; i++) {
+        if (SOCKETS[i].room == room && SOCKETS[i].ip != exclude) {
+            SOCKETS[i].socket.send(data);
+        }
+    }
+}
+
+function handlePlayerReq(data, exclude, room) {
+    let str = '{ \"type\":\"player\",';
+    if (data.play) {
+        str += '\"play\":true,';
+    }
+    if (data.pause) {
+        str += '\"pause\":true,';
+    }
+    if (data.time) {
+        str += '\"time\":' + data.time + ',';
+    }
+    if (data.buffer) {
+        str += '\"buffer\":' + data.buffer + ',';
+    }
+    str = str.slice(0, -1);
+    str += '}';
+    sendDataToRoom(room, str, exclude);
+}

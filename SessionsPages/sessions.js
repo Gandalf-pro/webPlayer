@@ -36,7 +36,7 @@ function getDataReady() {
 //     }
 // });
 
-createButton.addEventListener('click', () => {
+createButton.addEventListener('click',() => {
     let url = 'http://' + window.location.host + '/sesapi';
     const data = getDataReady();
     if (data != null) {
@@ -49,16 +49,18 @@ createButton.addEventListener('click', () => {
         }).then(res => {
             res.text().then(val => {
                 console.log(val);
-                // gotoRoomId(val);
+                gotoRoomId(val);
             })
         });
     }
 });
 
 function gotoRoomId(id) {
-    let loc = window.location.protocol + window.location.host + "/";
-    window.location.href = loc + id;    
+    id = id.replace(/\"/g, "");
+    let loc ="/room/" + id;
+    window.location.href = loc;    
 }
+
 
 
 
@@ -67,12 +69,17 @@ loginButton.addEventListener('click', () => {
     let url = 'http://' + window.location.host + '/sesapi';
     let data = getDataReady();
     if (data != null) {
-        fetch(url + '?type=join',{
+        let res = fetch(url + '?type=join',{
             headers: {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify(data),
             method: "POST"
+        }).then(res => {
+            res.text().then(val => {
+                console.log(val);
+                gotoRoomId(val);
+            })
         });
     }
 });
