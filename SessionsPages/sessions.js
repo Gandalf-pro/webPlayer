@@ -37,7 +37,7 @@ function getDataReady() {
 // });
 
 createButton.addEventListener('click',() => {
-    let url = 'http://' + window.location.host + '/sesapi';
+    let url = window.location.protocol + '/sesapi';
     const data = getDataReady();
     if (data != null) {
         fetch(url + '?type=create', {
@@ -66,7 +66,7 @@ function gotoRoomId(id) {
 
 
 loginButton.addEventListener('click', () => {
-    let url = 'http://' + window.location.host + '/sesapi';
+    let url = window.location.protocol + '/sesapi';
     let data = getDataReady();
     if (data != null) {
         let res = fetch(url + '?type=join',{

@@ -3,19 +3,24 @@
 
 
 
-var id;
+var roomId;
 var url_field = document.querySelector('#url_input');
 var name_field = document.querySelector('#name_input');
 
 function setID() {
-    id = window.location.pathname;
-    id = id.slice(6, id.length);
+    roomId = window.location.pathname;
+    roomId = roomId.slice(6, roomId.length);
 }
 setID();
 
+function clearFields() {
+    url_field.value = "";
+    name_field.value = "";
+}
 
 //add url to list
-function addUrl() {
+async function addUrl() {
+    let url = window.location.protocol + '/show?type=add';
     if (url_field.value.lenght < 3 || name_field.value.lenght < 2) {
         alert('fill out the fields');
         return;
@@ -25,7 +30,21 @@ function addUrl() {
         name: name_field.value,
         url: url_field
     };
-    
+    let send = {
+        '_id': roomId,
+        'show': show
+    };
+    let res = await fetch(url, {
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(send),
+        method: "POST"
+    });
+    console.log(res.text);
+    if (res.text == 'ok') {
+        
+    }
 }
 
 //code for video player
@@ -56,7 +75,7 @@ var player = setPlayerUp("https://transfer.nilkop.tk/cf/eemsye342ufa.mp4");
 async function getShowList() {
     let url = window.location.protocol + window.location.host + '/sesapi';
     let data = {
-        '_id': id
+        '_id': roomId
     };
     let showList = await fetch(url + '?type=getShows&data=' + JSON.stringify(data));
     pushShowsToList(showList);
@@ -65,7 +84,7 @@ async function getShowList() {
 var shows = [];
 
 function addShow(name) {
-    $('#show_input').append('<button onclick="bambum(this)">'+name+'</button>');
+    $('#show_input').append('<button onclick="bambum(this)">' + name + '</button>');
 }
 
 function pushShowsToList(shows_i) {
@@ -76,7 +95,9 @@ function pushShowsToList(shows_i) {
 }
 
 function changeShow(arg) {
-    player.src(shows[shows.findIndex({ name: arg.innerHTML })].url);
+    player.src(shows[shows.findIndex({
+        name: arg.innerHTML
+    })].url);
     player.volume(0.2);
 }
 
@@ -84,7 +105,7 @@ function changeShow(arg) {
 async function getUserList() {
     let url = window.location.protocol + window.location.host + '/sesapi';
     let data = {
-        '_id': id
+        '_id': roomId
     };
     let showList = await fetch(url + '?type=getUsers&data=' + JSON.stringify(data));
     pushUsersToList(showList);
@@ -93,7 +114,7 @@ async function getUserList() {
 var users = [];
 
 function addUser(name) {
-    $('#user_input').append('<button onclick="bambum(this)">'+name+'</button>');
+    $('#user_input').append('<button onclick="bambum(this)">' + name + '</button>');
 }
 
 function pushUsersToList(users_i) {
@@ -120,13 +141,14 @@ function bambum(arg) {
 
 // Websocket
 var ws;
+
 function openConnection() {
     let url = "ws://" + window.location.hostname + ":8080";
     ws = new WebSocket(url);
     // ws.onopen = () => {
     //     ws.send("hello");
     //     ws.close(1000, "bye");
-        
+
     // }
 
 }
@@ -160,22 +182,22 @@ function sendData(play, pause, time, buffer) {
     let data;
     if (buffer && time) {
         data = {
-            type:"player",
+            type: "player",
             play: play,
             pause: pause,
             time: player.currentTime(),
-            buffer:player.bufferedPercent()
+            buffer: player.bufferedPercent()
         }
     } else if (buffer) {
         data = {
-            type:"player",
+            type: "player",
             play: play,
             pause: pause,
-            buffer:player.bufferedPercent()
+            buffer: player.bufferedPercent()
         }
     } else if (time) {
         data = {
-            type:"player",
+            type: "player",
             play: play,
             pause: pause,
             time: player.currentTime(),
@@ -187,7 +209,7 @@ function sendData(play, pause, time, buffer) {
 
 player.on("seeking", (event) => {
     console.log('seeking');
-    sendData(false,false,true,true)
+    sendData(false, false, true, true)
 });
 
 player.on("pause", (event) => {

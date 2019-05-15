@@ -59,7 +59,7 @@ wss.on("connection", (wsIn, req) => {
         SOCKETS.push(socket);
     });
 
-    
+
 
     wsIn.on("message", (message) => {
         console.log(message + " from:" + req.connection.remoteAddress);
@@ -98,7 +98,9 @@ async function removeUserFromDb(roomName, userIp) {
     });
     let len = ja.users.length;
     if (len <= ret.result.ok) {
-        coll.deleteOne({'_id':id});
+        coll.deleteOne({
+            '_id': id
+        });
     }
 }
 
@@ -183,6 +185,16 @@ app.get('/room/*', (req, res) => {
 
 
 
+app.post('/show', async (req, res) => {
+    if (req.query.type == 'add') {
+        addVideoToRoom(req.body, req.body.show);
+        res.send("ok");
+    } else if (req.query.type == 'del') {
+        popVideoFromRoom(req.body, req.body.show);
+        res.send("ok");
+    }
+
+});
 
 
 async function addVideoToRoom(dataInfo, video) {
@@ -195,17 +207,12 @@ async function addVideoToRoom(dataInfo, video) {
             filtr = {
                 '_id': dataInfo._id
             };
-            //id the room has name
-        } else {
-            filtr = {
-                '_id': dataInfo._id
-            };
+            await coll.updateOne(filtr, {
+                $addToSet: {
+                    'srcs': video
+                }
+            });
         }
-        await coll.update(filtr, {
-            $addToSet: {
-                'srcs': video
-            }
-        });
     } catch (error) {
         console.log(error);
     }
@@ -223,17 +230,12 @@ async function popVideoFromRoom(dataInfo, video) {
             filtr = {
                 '_id': dataInfo._id
             };
-            //id the room has name
-        } else {
-            filtr = {
-                '_id': dataInfo._id
-            };
+            await coll.updateOne(filtr, {
+                $pull: {
+                    'srcs': video
+                }
+            });
         }
-        await coll.update(filtr, {
-            $pull: {
-                'srcs': video
-            }
-        });
     } catch (error) {
         console.log(error);
     }
