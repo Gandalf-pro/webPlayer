@@ -6,6 +6,7 @@
 var roomId;
 var url_field = document.querySelector('#url_input');
 var name_field = document.querySelector('#name_input');
+var video_add_button = document.querySelector('#input_button');
 
 function setID() {
     roomId = window.location.pathname;
@@ -13,39 +14,6 @@ function setID() {
 }
 setID();
 
-function clearFields() {
-    url_field.value = "";
-    name_field.value = "";
-}
-
-//add url to list
-async function addUrl() {
-    let url = window.location.protocol + '/show?type=add';
-    if (url_field.value.lenght < 3 || name_field.value.lenght < 2) {
-        alert('fill out the fields');
-        return;
-    }
-    //make server requests
-    let show = {
-        name: name_field.value,
-        url: url_field
-    };
-    let send = {
-        '_id': roomId,
-        'show': show
-    };
-    let res = await fetch(url, {
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(send),
-        method: "POST"
-    });
-    console.log(res.text);
-    if (res.text == 'ok') {
-        
-    }
-}
 
 //code for video player
 function setPlayerUp(sourceUrl) {
@@ -65,7 +33,7 @@ function setPlayerUp(sourceUrl) {
 
 }
 
-var player = setPlayerUp("https://transfer.nilkop.tk/cf/eemsye342ufa.mp4");
+var player = setPlayerUp("https://s322myt.storage.yandex.net/rdisk/70b696cea229b4ce144ee9eace1af0e73568a4393b86cd45cc0e33fd5bb6edc2/5d561fad/lGRReZ2Fw2ikMfQtRgob-sW8RqeEWb7FimXh2l0fNVcVe60Q63arV34wn2PX4T-6iB2qiiYqMbkmyiOjWXG1LA==?uid=0&filename=Theboys101.mp4&disposition=attachment&hash=&limit=0&content_type=video%2Fmp4&owner_uid=0&fsize=2723866734&hid=5b32e4cc56e6fdcf8036c25a989fb49f&media_type=video&tknv=v2&etag=37a59896ca24f30406d84228b30ca307&rtoken=avk9HWUpWIDR&force_default=no&ycrid=na-297c9d8f856c7f7406dfa59336dce603-downloader8f&ts=5903364d58540&s=008698c99671a3bb89bdb4f265521aaa50a875246e1cd49df91301176fe9d9a3&pb=U2FsdGVkX1_9eey2WAqrLzAdfFhp58ts7ik9fj9Nwbvd-QAktr07F-wlVC8C4ZbgdxZq5WoPerMsGEoyTQqmCdksb43LideLWmUcDqVpx44");
 
 
 
@@ -84,12 +52,13 @@ async function getShowList() {
 var shows = [];
 
 function addShow(name) {
-    $('#show_input').append('<button onclick="bambum(this)">' + name + '</button>');
+    let addText = `<li><button onclick="bambum(this)">${name}</button></li>`;
+    $('#show_input').append(addText);
 }
 
 function pushShowsToList(shows_i) {
     shows = JSON.parse(shows_i);
-    for (let i = 0; i < shows.lenght; i++) {
+    for (let i = 0; i < shows.length; i++) {
         addShow(shows[i].name);
     }
 }
@@ -101,33 +70,88 @@ function changeShow(arg) {
     player.volume(0.2);
 }
 
-//code for userlist
-async function getUserList() {
-    let url = window.location.protocol + window.location.host + '/sesapi';
-    let data = {
-        '_id': roomId
+
+function clearFields() {
+    url_field.value = "";
+    name_field.value = "";
+}
+
+//add url to list
+async function addUrl() {
+    let url = window.location.protocol + '/show?type=add';
+    if (url_field.value.length < 3 || name_field.value.length < 2) {
+        alert('fill out the fields');
+        return;
+    }
+    //make server requests
+    let show = {
+        name: name_field.value,
+        url: url_field.value
     };
-    let showList = await fetch(url + '?type=getUsers&data=' + JSON.stringify(data));
-    pushUsersToList(showList);
-}
-
-var users = [];
-
-function addUser(name) {
-    $('#user_input').append('<button onclick="bambum(this)">' + name + '</button>');
-}
-
-function pushUsersToList(users_i) {
-    users = JSON.parse(users_i);
-    for (let i = 0; i < users.lenght; i++) {
-        addUser(users[i].name);
+    let send = {
+        '_id': roomId,
+        'show': show
+    };
+    let res = await fetch(url, {
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(send),
+        method: "POST"
+    });
+    let respText = await res.text();
+    console.log(respText);
+    if (respText == 'ok') {
+        addShow(show.name);
     }
 }
 
 
 
 
-//maybe chat
+//code for userlist
+async function getUserList() {
+    let url = window.location.protocol + '/sesapi';
+    let data = {
+        '_id': roomId
+    };
+    let showList = await fetch(url + '?type=getUsers&data=' + JSON.stringify(data));
+    if (!showList) {
+        console.log(showList);
+        return showList;
+    }
+    return await showList.json();
+}
+
+var users = [];
+
+function removeUser(name) {
+    $(`#user_input #${name}`).remove();
+}
+
+function addUser(name) {
+    let addText = `<li id=${name}><button onclick="bambum(this)">${name}</button></li>`;
+    $('#user_input').append(addText);
+}
+
+function pushUsersToList(users_i) {
+    if (!users) {
+        users.push(users_i);
+    } else {
+        users.push(users_i);
+    }
+    for (let i = 0; i < users.length; i++) {
+        addUser(users[i].username);
+    }
+}
+getUserList().then(res => {
+    console.log(`Pushing users:${res.users}`);
+    pushUsersToList(res.users);
+});
+
+
+
+//trial code
 function bumbam(arg) {
     console.log(arg.innerHTML);
     console.log(player.currentSrc());
@@ -160,6 +184,8 @@ ws.onmessage = (message) => {
     if (parsed) {
         if (parsed.type == 'player') {
             handlePlayerReq(parsed);
+        } else if (parsed.type == 'chat') {
+
         }
     }
 };

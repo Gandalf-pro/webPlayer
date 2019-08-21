@@ -3,7 +3,8 @@ const cors = require('cors');
 const bodyParser = require('body-parser');
 const app = express();
 const path = require('path');
-const MongoClient = require('mongodb').MongoClient;
+const Mongo = require('mongodb');
+const MongoClient = Mongo.MongoClient;
 const assert = require('assert');
 const ws = require('ws');
 
@@ -54,7 +55,8 @@ wss.on("connection", (wsIn, req) => {
         let socket = {
             socket: wsIn,
             ip: req.connection.remoteAddress,
-            room: ret
+            room: ret.roomName,
+            roomId: ret.roomId
         };
         SOCKETS.push(socket);
     });
@@ -111,7 +113,10 @@ async function mathTheIp(ip) {
     let ret = await coll.findOne({
         "users.ip": ip
     });
-    return ret.roomName;
+    return {
+        roomName: ret.roomName,
+        roomId: ret._id
+    };
 }
 
 
@@ -177,10 +182,13 @@ app.get('/room/room.js', (req, res) => {
     res.sendFile(path.join(__dirname, '/Room/room.js'));
 });
 
-app.get('/room/*', (req, res) => {
-    let id = req.url;
-    id = id.slice(6, id.length);
-    res.sendFile(path.join(__dirname, '/Room/room.html'))
+app.get('/room/:id', async (req, res) => {
+    let id = req.params.id;
+    if (await idExists(id)) {
+        res.sendFile(path.join(__dirname, '/Room/room.html'));
+    } else {
+        res.status(404).send("Cant find your room");
+    }
 });
 
 
@@ -196,7 +204,7 @@ app.post('/show', async (req, res) => {
 
 });
 
-
+//video object has a name and a url field
 async function addVideoToRoom(dataInfo, video) {
     const db = client.db(dbName);
     const coll = db.collection('rooms');
@@ -205,10 +213,10 @@ async function addVideoToRoom(dataInfo, video) {
     try {
         if (dataInfo._id) {
             filtr = {
-                '_id': dataInfo._id
+                '_id': Mongo.ObjectId(dataInfo._id)
             };
-            await coll.updateOne(filtr, {
-                $addToSet: {
+            let reth = await coll.updateOne(filtr, {
+                $push: {
                     'srcs': video
                 }
             });
@@ -220,6 +228,20 @@ async function addVideoToRoom(dataInfo, video) {
 
 }
 
+async function idExists(id) {
+    try {
+        id = Mongo.ObjectId(id);
+    } catch (error) {
+        return false;
+    }
+    const db = client.db(dbName);
+    const coll = db.collection('rooms');
+    return await coll.findOne({
+        '_id': id
+    });
+
+}
+
 async function popVideoFromRoom(dataInfo, video) {
     const db = client.db(dbName);
     const coll = db.collection('rooms');
@@ -228,7 +250,7 @@ async function popVideoFromRoom(dataInfo, video) {
         //if the room has a id
         if (dataInfo._id) {
             filtr = {
-                '_id': dataInfo._id
+                '_id': Mongo.ObjectId(dataInfo._id)
             };
             await coll.updateOne(filtr, {
                 $pull: {
@@ -322,9 +344,15 @@ app.post('/sesapi', async (req, res) => {
 
 });
 
-app.get('/sesapi', (req, res) => {
+app.get('/sesapi', async (req, res) => {
     if (req.query.type == 'getUsers') {
-        let ret = getUsersOnRoom(req.body._id).then(res.send(ret));
+        let gotId = JSON.parse(req.query.data);
+        console.log(`Geting the users on room id:${gotId._id}`);
+        let ret = await getUsersOnRoom(gotId._id);
+        let dataSend = {
+            "users": ret
+        };
+        res.send(dataSend);
     }
 });
 
@@ -333,10 +361,11 @@ async function getUsersOnRoom(roomId) {
     const db = client.db(dbName);
     const coll = db.collection('rooms');
     let data = await coll.findOne({
-        '_id': roomId
+        '_id': Mongo.ObjectId(roomId)
     });
     if (!data) {
-        return -1;
+        console.log("cant find users");
+        return "false";
     }
     return JSON.stringify(data.users);
 }
