@@ -1,22 +1,51 @@
 <!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Rooms</title>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
     <link rel="stylesheet" href="sessions.css">
-</head>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" charset="utf-8"></script>
+  </head>
+  <body>
 
-<body>
-    <h1 class="heading">Rooms</h1>
-    <input class="username_input" placeholder="Name">
-    <input class="session_name_input" placeholder="Room Name">
-    <input type="password" class="session_password_input" placeholder="Room Password">
-    <button class="create_button">Create</button>
-    <button class="login_button">Join</button>
-</body>
+      <form action="/sesapi?type=create" class="login-form" method="post">
+        <h1>Rooms</h1>
 
-<script src="sessions.js"></script>
+        <div class="txtb">
+          <input type="text" id="username" name="username">
+          <span data-placeholder="Username"></span>
+        </div>
+
+        <div class="txtb">
+          <input type="text" id="roomName" name="roomName">
+          <span data-placeholder="Room Name"></span>
+        </div>
+
+        <div class="txtb">
+          <input type="password" id="roomPass" name="roomPass">
+          <span data-placeholder="Room Password"></span>
+        </div>
+
+        <input type="submit" class="logbtn" id="create_button" value="Create">
+        
+        <input type="submit" class="logbtn" id="login_button" value="Join">
+        
+
+      </form>
+
+      <script type="text/javascript">
+      $(".txtb input").on("focus",function(){
+        $(this).addClass("focus");
+      });
+
+      $(".txtb input").on("blur",function(){
+        if($(this).val() == "")
+        $(this).removeClass("focus");
+      });
+
+      </script>
+
+
+  </body>
+  <!-- <script src="sessions.js"></script> -->
 </html>

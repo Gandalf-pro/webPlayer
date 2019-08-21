@@ -1,0 +1,31 @@
+* {
+    text-align: center;
+}
+
+
+body { 
+    background-image: url("/galaxy.jpeg");
+}
+
+.heading {
+    font-family: Arial;
+    margin-top: 25vh;
+    color: brown;
+}
+
+input,
+button {
+    font-size: 1.3em;
+    padding: 5px 10px;
+}
+
+button {
+    border-radius: 0px 4px 4px 0px;
+    border: 2px solid #0485ff;
+    background: #2089ec;
+    color: white;
+}
+
+input:focus {
+    border: 2px solid #0485ff;
+}

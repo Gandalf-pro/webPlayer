@@ -333,7 +333,7 @@ app.post('/sesapi', async (req, res) => {
             console.log(err);
             res.send(err);
         });
-        res.send(id);
+        res.redirect("/room/" + id);
     } else if (req.query.type == 'join') {
         let id = await addUserToSession(req.body, req.ip).catch(err => {
             console.log(err);

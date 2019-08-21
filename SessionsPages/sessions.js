@@ -1,8 +1,8 @@
-var createButton = document.querySelector('.create_button');
-var loginButton = document.querySelector('.login_button');
-var username = document.querySelector('.username_input');
-var session = document.querySelector('.session_name_input');
-var password = document.querySelector('.session_password_input');
+// var createButton = document.querySelector('#create_button');
+// var loginButton = document.querySelector('#login_button');
+// var username = document.querySelector('.username_input');
+// var session = document.querySelector('.session_name_input');
+// var password = document.querySelector('.session_password_input');
 
 
 
